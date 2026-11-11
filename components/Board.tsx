@@ -44,6 +44,7 @@ import {
   seedInitialDataAction,
 } from "@/app/actions";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import { InstallPwaPrompt } from "@/components/InstallPwaPrompt";
 import { SummaryBar } from "@/components/SummaryBar";
 import { FilterBar } from "@/components/FilterBar";
 import { MobileTabs } from "@/components/MobileTabs";
@@ -660,6 +661,7 @@ export function Board({ initialData }: BoardProps) {
 
           {/* Action buttons */}
           <div className="flex items-center gap-2">
+            <InstallPwaPrompt />
             <ThemeToggle />
             <button
               type="button"
