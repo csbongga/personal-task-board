@@ -3,6 +3,7 @@ export type TaskCategory =
   | "teaching"
   | "research"
   | "advising"
+  | "review"
   | "other";
 
 export type TaskStatus = "todo" | "doing" | "polish" | "waiting" | "done";
@@ -85,6 +86,7 @@ export const CATEGORY_ORDER: TaskCategory[] = [
   "teaching",
   "research",
   "advising",
+  "review",
   "other",
 ];
 
@@ -143,6 +145,17 @@ export const CATEGORY_CONFIG: Record<
     cardBorderLeftColor: "#F97316",
     cardClass:
       "bg-[#FFF7ED] dark:bg-[#F97316]/10 border-l-[4px] border-l-[#F97316] border-t border-r border-b border-orange-200/70 dark:border-t-orange-500/20 dark:border-r-orange-500/20 dark:border-b-orange-500/20",
+  },
+  review: {
+    label: "รีวิวบทความ",
+    shortLabel: "รีวิวบทความ",
+    badgeClass:
+      "bg-pink-100/90 text-pink-800 border-pink-200 dark:bg-pink-950/80 dark:text-pink-300 dark:border-pink-800",
+    dotClass: "bg-[#EC4899]",
+    cardBgLight: "#FDF2F8",
+    cardBorderLeftColor: "#EC4899",
+    cardClass:
+      "bg-[#FDF2F8] dark:bg-[#EC4899]/10 border-l-[4px] border-l-[#EC4899] border-t border-r border-b border-pink-200/70 dark:border-t-pink-500/20 dark:border-r-pink-500/20 dark:border-b-pink-500/20",
   },
   other: {
     label: "อื่นๆ",

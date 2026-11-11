@@ -5,7 +5,7 @@
 create table if not exists tasks (
   id uuid primary key default gen_random_uuid(),
   title text not null,
-  category text not null default 'other' check (category in ('article', 'teaching', 'research', 'advising', 'other')),
+  category text not null default 'other' check (category in ('article', 'teaching', 'research', 'advising', 'review', 'other')),
   status text not null default 'todo' check (status in ('todo', 'doing', 'polish', 'waiting', 'done')),
   waiting_for text null,
   priority int not null default 2 check (priority in (1, 2, 3)),

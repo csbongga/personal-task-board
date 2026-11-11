@@ -263,6 +263,7 @@ export function TaskDetail({
                   <option value="teaching">เอกสารคำสอน/ตำรา</option>
                   <option value="research">วิจัย</option>
                   <option value="advising">ที่ปรึกษา</option>
+                  <option value="review">รีวิวบทความ</option>
                   <option value="other">อื่นๆ</option>
                 </select>
               </div>

@@ -40,6 +40,11 @@ const CATEGORY_OPTIONS: CategoryOption[] = [
     dotClass: "bg-[#F97316]",
   },
   {
+    key: "review",
+    label: CATEGORY_CONFIG.review.shortLabel,
+    dotClass: CATEGORY_CONFIG.review.dotClass,
+  },
+  {
     key: "other",
     label: CATEGORY_CONFIG.other.shortLabel,
     dotClass: CATEGORY_CONFIG.other.dotClass,

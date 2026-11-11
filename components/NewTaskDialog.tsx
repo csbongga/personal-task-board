@@ -14,6 +14,7 @@ import {
 import {
   ARTICLE_TEMPLATE_STEPS,
   ADVISING_TEMPLATE_STEPS,
+  REVIEW_TEMPLATE_STEPS,
   generateTeachingSteps,
   StepTemplateType,
 } from "@/lib/templates";
@@ -82,6 +83,9 @@ export function NewTaskDialog({
       case "advising":
         setTemplateType("advising");
         break;
+      case "review":
+        setTemplateType("review");
+        break;
       case "research":
         setTemplateType("research");
         break;
@@ -101,6 +105,8 @@ export function NewTaskDialog({
         return generateTeachingSteps(chapterCount || 15);
       case "advising":
         return [...ADVISING_TEMPLATE_STEPS];
+      case "review":
+        return [...REVIEW_TEMPLATE_STEPS];
       case "research":
       case "empty":
       default:
@@ -196,6 +202,8 @@ export function NewTaskDialog({
                   placeholder={
                     category === "advising"
                       ? "ชื่อโครงงาน – ชื่อนักศึกษา"
+                      : category === "review"
+                      ? "ชื่อบทความที่รีวิว – ชื่อวารสาร/งานประชุม"
                       : "เช่น บทความใบอ้อย, ตำราการเขียนโปรแกรมบนเว็บ..."
                   }
                   className="w-full px-3.5 py-2.5 text-sm rounded-lg border border-input bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary min-h-[44px]"
@@ -221,6 +229,7 @@ export function NewTaskDialog({
                     <option value="teaching">เอกสารคำสอน/ตำรา</option>
                     <option value="research">วิจัย</option>
                     <option value="advising">ที่ปรึกษา</option>
+                    <option value="review">รีวิวบทความ</option>
                     <option value="other">อื่นๆ</option>
                   </select>
                 </div>
@@ -320,7 +329,7 @@ export function NewTaskDialog({
                   </label>
                 </div>
 
-                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-2">
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
                   <button
                     type="button"
                     onClick={() => setTemplateType("article")}
@@ -358,6 +367,19 @@ export function NewTaskDialog({
                   >
                     <p className="font-medium text-foreground">ที่ปรึกษาโครงงาน</p>
                     <p className="text-[11px] text-muted-foreground mt-0.5">8 ขั้นตอน</p>
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => setTemplateType("review")}
+                    className={`p-2.5 rounded-lg border text-left text-xs transition-all ${
+                      templateType === "review"
+                        ? "border-primary bg-primary/10 text-primary font-semibold ring-1 ring-primary"
+                        : "border-input bg-background text-muted-foreground hover:text-foreground hover:bg-muted/50"
+                    }`}
+                  >
+                    <p className="font-medium text-foreground">รีวิวบทความ</p>
+                    <p className="text-[11px] text-muted-foreground mt-0.5">4 ขั้นตอนประเมิน</p>
                   </button>
 
                   <button

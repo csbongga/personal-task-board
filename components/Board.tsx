@@ -118,6 +118,7 @@ export function Board({ initialData }: BoardProps) {
       teaching: 0,
       research: 0,
       advising: 0,
+      review: 0,
       other: 0,
     };
     tasks.forEach((t) => {

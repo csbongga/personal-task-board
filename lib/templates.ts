@@ -4,6 +4,7 @@ export type StepTemplateType =
   | "article"
   | "teaching"
   | "advising"
+  | "review"
   | "research"
   | "empty";
 
@@ -26,6 +27,13 @@ export const ADVISING_TEMPLATE_STEPS: string[] = [
   "บทที่ 4",
   "บทที่ 5",
   "ภาคผนวก",
+];
+
+export const REVIEW_TEMPLATE_STEPS: string[] = [
+  "รับบทความ / รออ่าน",
+  "อ่านและประเมินบทความ",
+  "เขียนความเห็นและข้อเสนอแนะ",
+  "ส่งผลประเมินคืนวารสาร",
 ];
 
 export function generateTeachingSteps(chapterCount: number = 15): string[] {
@@ -55,6 +63,8 @@ export function getTemplateSteps(
       return generateTeachingSteps(chapterCount);
     case "advising":
       return [...ADVISING_TEMPLATE_STEPS];
+    case "review":
+      return [...REVIEW_TEMPLATE_STEPS];
     case "research":
     case "empty":
     default:
