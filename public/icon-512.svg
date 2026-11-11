@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" fill="none">
+  <defs>
+    <linearGradient id="bgGrad512" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3b82f6"/>
+      <stop offset="100%" stop-color="#1d4ed8"/>
+    </linearGradient>
+    <linearGradient id="boardGrad512" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#f8fafc"/>
+    </linearGradient>
+    <filter id="shadow512" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="16" stdDeviation="16" flood-opacity="0.22"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="512" height="512" rx="112" fill="url(#bgGrad512)"/>
+
+  <!-- Subtle glow -->
+  <circle cx="256" cy="80" r="220" fill="white" opacity="0.08"/>
+
+  <!-- Clipboard Board -->
+  <rect x="112" y="118" width="288" height="304" rx="42" fill="url(#boardGrad512)" filter="url(#shadow512)"/>
+
+  <!-- Clip top -->
+  <rect x="196" y="90" width="120" height="52" rx="20" fill="#1e40af"/>
+  <rect x="224" y="80" width="64" height="26" rx="10" fill="#93c5fd"/>
+
+  <!-- Checklist lines and checkmarks -->
+  <!-- Row 1 (Checked - Emerald/Green) -->
+  <rect x="152" y="180" width="48" height="48" rx="14" fill="#22c55e"/>
+  <path d="M164 204 L173 213 L188 196" stroke="white" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="220" y="194" width="144" height="20" rx="10" fill="#64748b"/>
+
+  <!-- Row 2 (Checked - Blue) -->
+  <rect x="152" y="256" width="48" height="48" rx="14" fill="#3b82f6"/>
+  <path d="M164 280 L173 289 L188 272" stroke="white" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="220" y="270" width="120" height="20" rx="10" fill="#64748b"/>
+
+  <!-- Row 3 (In progress / dot) -->
+  <rect x="152" y="332" width="48" height="48" rx="14" fill="#e2e8f0" stroke="#cbd5e1" stroke-width="5"/>
+  <rect x="220" y="346" width="96" height="20" rx="10" fill="#94a3b8"/>
+</svg>
