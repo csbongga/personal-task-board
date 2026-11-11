@@ -13,9 +13,11 @@ import {
 } from "@/lib/types";
 import {
   ARTICLE_TEMPLATE_STEPS,
+  ADVISING_TEMPLATE_STEPS,
   generateTeachingSteps,
   StepTemplateType,
 } from "@/lib/templates";
+import { ThaiDatePicker } from "@/components/ThaiDatePicker";
 import {
   X,
   Plus,
@@ -77,6 +79,9 @@ export function NewTaskDialog({
       case "teaching":
         setTemplateType("teaching");
         break;
+      case "advising":
+        setTemplateType("advising");
+        break;
       case "research":
         setTemplateType("research");
         break;
@@ -94,6 +99,8 @@ export function NewTaskDialog({
         return [...ARTICLE_TEMPLATE_STEPS];
       case "teaching":
         return generateTeachingSteps(chapterCount || 15);
+      case "advising":
+        return [...ADVISING_TEMPLATE_STEPS];
       case "research":
       case "empty":
       default:
@@ -186,7 +193,11 @@ export function NewTaskDialog({
                   autoFocus
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
-                  placeholder="เช่น บทความใบอ้อย, ตำราการเขียนโปรแกรมบนเว็บ..."
+                  placeholder={
+                    category === "advising"
+                      ? "ชื่อโครงงาน – ชื่อนักศึกษา"
+                      : "เช่น บทความใบอ้อย, ตำราการเขียนโปรแกรมบนเว็บ..."
+                  }
                   className="w-full px-3.5 py-2.5 text-sm rounded-lg border border-input bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary min-h-[44px]"
                   required
                 />
@@ -209,6 +220,7 @@ export function NewTaskDialog({
                     <option value="article">บทความ</option>
                     <option value="teaching">เอกสารคำสอน/ตำรา</option>
                     <option value="research">วิจัย</option>
+                    <option value="advising">ที่ปรึกษา</option>
                     <option value="other">อื่นๆ</option>
                   </select>
                 </div>
@@ -226,9 +238,9 @@ export function NewTaskDialog({
                     className="w-full text-sm font-medium px-3 py-2 rounded-lg border border-input bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-primary min-h-[44px] sm:min-h-[38px]"
                   >
                     <option value="doing">กำลังทำ (แนะนำ)</option>
-                    <option value="todo">ยังไม่เริ่ม</option>
                     <option value="polish">ปรับปรุง</option>
                     <option value="waiting">รอผล</option>
+                    <option value="todo">ยังไม่เริ่ม</option>
                     <option value="done">เสร็จแล้ว</option>
                   </select>
                 </div>
@@ -291,12 +303,10 @@ export function NewTaskDialog({
                     <Calendar className="w-3.5 h-3.5" />
                     <span>วันครบกำหนด (ถ้ามี)</span>
                   </label>
-                  <input
+                  <ThaiDatePicker
                     id="new-task-due-date"
-                    type="date"
-                    value={dueDate}
-                    onChange={(e) => setDueDate(e.target.value)}
-                    className="w-full text-sm px-3 py-2 rounded-lg border border-input bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-primary min-h-[44px] sm:min-h-[38px]"
+                    value={dueDate || null}
+                    onChange={(iso) => setDueDate(iso || "")}
                   />
                 </div>
               </div>
@@ -310,7 +320,7 @@ export function NewTaskDialog({
                   </label>
                 </div>
 
-                <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-2">
                   <button
                     type="button"
                     onClick={() => setTemplateType("article")}
@@ -335,6 +345,19 @@ export function NewTaskDialog({
                   >
                     <p className="font-medium text-foreground">เอกสารคำสอน/ตำรา</p>
                     <p className="text-[11px] text-muted-foreground mt-0.5">บทที่ 1 ถึง N</p>
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => setTemplateType("advising")}
+                    className={`p-2.5 rounded-lg border text-left text-xs transition-all ${
+                      templateType === "advising"
+                        ? "border-primary bg-primary/10 text-primary font-semibold ring-1 ring-primary"
+                        : "border-input bg-background text-muted-foreground hover:text-foreground hover:bg-muted/50"
+                    }`}
+                  >
+                    <p className="font-medium text-foreground">ที่ปรึกษาโครงงาน</p>
+                    <p className="text-[11px] text-muted-foreground mt-0.5">8 ขั้นตอน</p>
                   </button>
 
                   <button

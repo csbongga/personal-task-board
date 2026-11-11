@@ -116,6 +116,7 @@ export function Board({ initialData }: BoardProps) {
       article: 0,
       teaching: 0,
       research: 0,
+      advising: 0,
       other: 0,
     };
     tasks.forEach((t) => {
@@ -628,10 +629,10 @@ export function Board({ initialData }: BoardProps) {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 flex flex-col font-sans">
+    <div className="min-h-screen lg:h-screen lg:overflow-hidden bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 flex flex-col font-sans">
       {/* Sticky Header */}
-      <header className="sticky top-0 z-30 border-b border-slate-200/90 bg-white/80 dark:border-slate-800 dark:bg-slate-900/80 backdrop-blur-md">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex items-center justify-between gap-3">
+      <header className="sticky top-0 z-30 shrink-0 border-b border-slate-200/90 bg-white/80 dark:border-slate-800 dark:bg-slate-900/80 backdrop-blur-md">
+        <div className="w-full px-4 sm:px-6 lg:px-[24px] py-3.5 flex items-center justify-between gap-3">
           {/* Brand & Subtitle */}
           <div className="min-w-0">
             <div className="flex items-center gap-2.5">
@@ -673,18 +674,22 @@ export function Board({ initialData }: BoardProps) {
       </header>
 
       {/* Main Container */}
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-5 space-y-5">
+      <main className="flex-1 w-full px-4 sm:px-6 lg:px-[24px] py-3 lg:py-4 flex flex-col gap-3.5 lg:min-h-0 lg:overflow-hidden">
         {/* Summary Metric Cards */}
-        <SummaryBar tasks={tasks} />
+        <div className="shrink-0">
+          <SummaryBar tasks={tasks} />
+        </div>
 
         {/* Category Filter & Search Bar */}
-        <FilterBar
-          selectedCategory={selectedCategory}
-          onSelectCategory={setSelectedCategory}
-          searchQuery={searchQuery}
-          onSearchChange={setSearchQuery}
-          categoryCounts={categoryCounts}
-        />
+        <div className="shrink-0">
+          <FilterBar
+            selectedCategory={selectedCategory}
+            onSelectCategory={setSelectedCategory}
+            searchQuery={searchQuery}
+            onSearchChange={setSearchQuery}
+            categoryCounts={categoryCounts}
+          />
+        </div>
 
         {/* Empty State Banner (If 0 tasks) */}
         {tasks.length === 0 && (
@@ -733,7 +738,7 @@ export function Board({ initialData }: BoardProps) {
 
         {/* Desktop Kanban View (≥ 768px) */}
         {tasks.length > 0 && (
-          <div className="hidden md:block">
+          <div className="hidden md:flex flex-1 min-h-0 flex-col">
             <DndContext
               sensors={sensors}
               collisionDetection={closestCorners}
@@ -741,7 +746,7 @@ export function Board({ initialData }: BoardProps) {
               onDragOver={handleDragOver}
               onDragEnd={handleDragEnd}
             >
-              <div className="flex gap-4 overflow-x-auto pb-6 items-start custom-scrollbar">
+              <div className="flex gap-3 w-full flex-1 min-h-0 items-stretch overflow-x-auto lg:overflow-x-hidden pb-1">
                 {DESKTOP_COLUMNS.map((status) => {
                   const columnTasks = filteredTasks
                     .filter((t) => t.status === status)

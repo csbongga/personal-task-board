@@ -1,4 +1,9 @@
-export type TaskCategory = "article" | "teaching" | "research" | "other";
+export type TaskCategory =
+  | "article"
+  | "teaching"
+  | "research"
+  | "advising"
+  | "other";
 
 export type TaskStatus = "todo" | "doing" | "polish" | "waiting" | "done";
 
@@ -75,6 +80,14 @@ export interface ReorderStepsItem {
   position: number;
 }
 
+export const CATEGORY_ORDER: TaskCategory[] = [
+  "article",
+  "teaching",
+  "research",
+  "advising",
+  "other",
+];
+
 export const CATEGORY_CONFIG: Record<
   TaskCategory,
   {
@@ -82,35 +95,65 @@ export const CATEGORY_CONFIG: Record<
     shortLabel: string;
     badgeClass: string;
     dotClass: string;
+    cardBgLight: string;
+    cardBorderLeftColor: string;
+    cardClass: string;
   }
 > = {
   article: {
     label: "บทความ",
     shortLabel: "บทความ",
     badgeClass:
-      "bg-blue-100 text-blue-800 border-blue-200 dark:bg-blue-950/70 dark:text-blue-300 dark:border-blue-800",
-    dotClass: "bg-blue-600 dark:bg-blue-400",
+      "bg-blue-100/90 text-blue-800 border-blue-200 dark:bg-blue-950/80 dark:text-blue-300 dark:border-blue-800",
+    dotClass: "bg-[#3B82F6]",
+    cardBgLight: "#EFF6FF",
+    cardBorderLeftColor: "#3B82F6",
+    cardClass:
+      "bg-[#EFF6FF] dark:bg-[#3B82F6]/10 border-l-[4px] border-l-[#3B82F6] border-t border-r border-b border-blue-200/70 dark:border-t-blue-500/20 dark:border-r-blue-500/20 dark:border-b-blue-500/20",
   },
   teaching: {
     label: "เอกสารคำสอน/ตำรา",
     shortLabel: "เอกสารคำสอน",
     badgeClass:
-      "bg-emerald-100 text-emerald-800 border-emerald-200 dark:bg-emerald-950/70 dark:text-emerald-300 dark:border-emerald-800",
-    dotClass: "bg-emerald-600 dark:bg-emerald-400",
+      "bg-green-100/90 text-green-800 border-green-200 dark:bg-green-950/80 dark:text-green-300 dark:border-green-800",
+    dotClass: "bg-[#22C55E]",
+    cardBgLight: "#F0FDF4",
+    cardBorderLeftColor: "#22C55E",
+    cardClass:
+      "bg-[#F0FDF4] dark:bg-[#22C55E]/10 border-l-[4px] border-l-[#22C55E] border-t border-r border-b border-green-200/70 dark:border-t-green-500/20 dark:border-r-green-500/20 dark:border-b-green-500/20",
   },
   research: {
     label: "วิจัย",
     shortLabel: "วิจัย",
     badgeClass:
-      "bg-purple-100 text-purple-800 border-purple-200 dark:bg-purple-950/70 dark:text-purple-300 dark:border-purple-800",
-    dotClass: "bg-purple-600 dark:bg-purple-400",
+      "bg-purple-100/90 text-purple-800 border-purple-200 dark:bg-purple-950/80 dark:text-purple-300 dark:border-purple-800",
+    dotClass: "bg-[#A855F7]",
+    cardBgLight: "#FAF5FF",
+    cardBorderLeftColor: "#A855F7",
+    cardClass:
+      "bg-[#FAF5FF] dark:bg-[#A855F7]/10 border-l-[4px] border-l-[#A855F7] border-t border-r border-b border-purple-200/70 dark:border-t-purple-500/20 dark:border-r-purple-500/20 dark:border-b-purple-500/20",
+  },
+  advising: {
+    label: "ที่ปรึกษา",
+    shortLabel: "ที่ปรึกษา",
+    badgeClass:
+      "bg-orange-100/90 text-orange-800 border-orange-200 dark:bg-orange-950/80 dark:text-orange-300 dark:border-orange-800",
+    dotClass: "bg-[#F97316]",
+    cardBgLight: "#FFF7ED",
+    cardBorderLeftColor: "#F97316",
+    cardClass:
+      "bg-[#FFF7ED] dark:bg-[#F97316]/10 border-l-[4px] border-l-[#F97316] border-t border-r border-b border-orange-200/70 dark:border-t-orange-500/20 dark:border-r-orange-500/20 dark:border-b-orange-500/20",
   },
   other: {
     label: "อื่นๆ",
     shortLabel: "อื่นๆ",
     badgeClass:
-      "bg-slate-100 text-slate-700 border-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:border-slate-700",
-    dotClass: "bg-slate-500 dark:bg-slate-400",
+      "bg-slate-200/80 text-slate-700 border-slate-300 dark:bg-slate-800 dark:text-slate-300 dark:border-slate-700",
+    dotClass: "bg-[#94A3B8]",
+    cardBgLight: "#F8FAFC",
+    cardBorderLeftColor: "#94A3B8",
+    cardClass:
+      "bg-[#F8FAFC] dark:bg-[#94A3B8]/10 border-l-[4px] border-l-[#94A3B8] border-t border-r border-b border-slate-200/90 dark:border-t-slate-500/20 dark:border-r-slate-500/20 dark:border-b-slate-500/20",
   },
 };
 
@@ -125,15 +168,6 @@ export const STATUS_CONFIG: Record<
     barClass: string;
   }
 > = {
-  todo: {
-    label: "ยังไม่เริ่ม",
-    mobileLabel: "ยังไม่เริ่ม",
-    badgeClass:
-      "bg-slate-100 text-slate-700 border-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:border-slate-700",
-    headerClass: "border-t-4 border-t-slate-400 dark:border-t-slate-500",
-    dotClass: "bg-slate-400",
-    barClass: "bg-slate-500",
-  },
   doing: {
     label: "กำลังทำ",
     mobileLabel: "กำลังทำ",
@@ -161,9 +195,18 @@ export const STATUS_CONFIG: Record<
     dotClass: "bg-amber-500",
     barClass: "bg-amber-500",
   },
+  todo: {
+    label: "ยังไม่เริ่ม",
+    mobileLabel: "ยังไม่เริ่ม",
+    badgeClass:
+      "bg-slate-100 text-slate-700 border-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:border-slate-700",
+    headerClass: "border-t-4 border-t-slate-400 dark:border-t-slate-500",
+    dotClass: "bg-slate-400",
+    barClass: "bg-slate-500",
+  },
   done: {
     label: "เสร็จแล้ว",
-    mobileLabel: "เสร็จ",
+    mobileLabel: "เสร็จแล้ว",
     badgeClass:
       "bg-green-100 text-green-800 border-green-200 dark:bg-green-950/80 dark:text-green-300 dark:border-green-800",
     headerClass: "border-t-4 border-t-green-600 dark:border-t-green-500",
@@ -172,14 +215,16 @@ export const STATUS_CONFIG: Record<
   },
 };
 
+// เรียงคอลัมน์ใหม่: กำลังทำ · ปรับปรุง · รอผล · ยังไม่เริ่ม · เสร็จแล้ว
 export const DESKTOP_COLUMNS: TaskStatus[] = [
-  "todo",
   "doing",
   "polish",
   "waiting",
+  "todo",
   "done",
 ];
 
+// แท็บบนมือถือเรียงลำดับเดียวกัน: กำลังทำ · ปรับปรุง · รอผล · ยังไม่เริ่ม · เสร็จแล้ว
 export const MOBILE_TABS: TaskStatus[] = [
   "doing",
   "polish",

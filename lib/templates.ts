@@ -1,6 +1,11 @@
 import { TaskCategory, TaskStatus } from "./types";
 
-export type StepTemplateType = "article" | "teaching" | "research" | "empty";
+export type StepTemplateType =
+  | "article"
+  | "teaching"
+  | "advising"
+  | "research"
+  | "empty";
 
 export const ARTICLE_TEMPLATE_STEPS: string[] = [
   "เขียนร่างต้นฉบับ",
@@ -10,6 +15,17 @@ export const ARTICLE_TEMPLATE_STEPS: string[] = [
   "รอผลพิจารณา",
   "แก้ไขตามผู้ทรง",
   "ตอบรับ/ตีพิมพ์",
+];
+
+export const ADVISING_TEMPLATE_STEPS: string[] = [
+  "ได้หัวข้อแล้ว",
+  "แบบเสนอหัวข้อ",
+  "บทที่ 1",
+  "บทที่ 2",
+  "บทที่ 3",
+  "บทที่ 4",
+  "บทที่ 5",
+  "ภาคผนวก",
 ];
 
 export function generateTeachingSteps(chapterCount: number = 15): string[] {
@@ -37,6 +53,8 @@ export function getTemplateSteps(
       return [...ARTICLE_TEMPLATE_STEPS];
     case "teaching":
       return generateTeachingSteps(chapterCount);
+    case "advising":
+      return [...ADVISING_TEMPLATE_STEPS];
     case "research":
     case "empty":
     default:

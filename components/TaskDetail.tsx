@@ -15,6 +15,7 @@ import {
 } from "@/lib/types";
 import { formatThaiDateTime } from "@/lib/utils";
 import { StepList } from "@/components/StepList";
+import { ThaiDatePicker } from "@/components/ThaiDatePicker";
 import {
   X,
   Trash2,
@@ -120,15 +121,6 @@ export function TaskDetail({
     if (p !== task.priority) {
       onUpdateTask(task.id, { priority: p });
     }
-  };
-
-  const handleDueDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const val = e.target.value;
-    onUpdateTask(task.id, { due_date: val || null });
-  };
-
-  const handleClearDueDate = () => {
-    onUpdateTask(task.id, { due_date: null });
   };
 
   // Completion check
@@ -270,6 +262,7 @@ export function TaskDetail({
                   <option value="article">บทความ</option>
                   <option value="teaching">เอกสารคำสอน/ตำรา</option>
                   <option value="research">วิจัย</option>
+                  <option value="advising">ที่ปรึกษา</option>
                   <option value="other">อื่นๆ</option>
                 </select>
               </div>
@@ -285,10 +278,10 @@ export function TaskDetail({
                   onChange={(e) => handleStatusChange(e.target.value as TaskStatus)}
                   className="w-full text-sm font-medium px-3 py-2 rounded-lg border border-input bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-primary min-h-[44px] sm:min-h-[38px]"
                 >
-                  <option value="todo">ยังไม่เริ่ม</option>
                   <option value="doing">กำลังทำ</option>
                   <option value="polish">ปรับปรุง</option>
                   <option value="waiting">รอผล</option>
+                  <option value="todo">ยังไม่เริ่ม</option>
                   <option value="done">เสร็จแล้ว</option>
                 </select>
               </div>
@@ -326,26 +319,13 @@ export function TaskDetail({
 
               {/* Due Date */}
               <div className="space-y-1.5">
-                <label className="text-xs font-medium text-muted-foreground flex items-center justify-between">
-                  <span className="flex items-center gap-1.5">
-                    <Calendar className="w-3.5 h-3.5" />
-                    <span>วันครบกำหนด</span>
-                  </span>
-                  {task.due_date && (
-                    <button
-                      type="button"
-                      onClick={handleClearDueDate}
-                      className="text-[11px] text-muted-foreground hover:text-rose-500 underline"
-                    >
-                      ล้างวันที่
-                    </button>
-                  )}
+                <label className="text-xs font-medium text-muted-foreground flex items-center gap-1.5">
+                  <Calendar className="w-3.5 h-3.5" />
+                  <span>วันครบกำหนด</span>
                 </label>
-                <input
-                  type="date"
-                  value={task.due_date ? task.due_date.slice(0, 10) : ""}
-                  onChange={handleDueDateChange}
-                  className="w-full text-sm px-3 py-2 rounded-lg border border-input bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-primary min-h-[44px] sm:min-h-[38px]"
+                <ThaiDatePicker
+                  value={task.due_date}
+                  onChange={(iso) => onUpdateTask(task.id, { due_date: iso })}
                 />
               </div>
             </div>

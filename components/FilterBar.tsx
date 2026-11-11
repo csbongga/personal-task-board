@@ -14,14 +14,36 @@ export interface FilterBarProps {
 interface CategoryOption {
   key: TaskCategory | "all";
   label: string;
+  dotClass?: string;
 }
 
 const CATEGORY_OPTIONS: CategoryOption[] = [
   { key: "all", label: "ทั้งหมด" },
-  { key: "article", label: CATEGORY_CONFIG.article.shortLabel },
-  { key: "teaching", label: CATEGORY_CONFIG.teaching.shortLabel },
-  { key: "research", label: CATEGORY_CONFIG.research.shortLabel },
-  { key: "other", label: CATEGORY_CONFIG.other.shortLabel },
+  {
+    key: "article",
+    label: CATEGORY_CONFIG.article.shortLabel,
+    dotClass: CATEGORY_CONFIG.article.dotClass,
+  },
+  {
+    key: "teaching",
+    label: CATEGORY_CONFIG.teaching.shortLabel,
+    dotClass: CATEGORY_CONFIG.teaching.dotClass,
+  },
+  {
+    key: "research",
+    label: CATEGORY_CONFIG.research.shortLabel,
+    dotClass: CATEGORY_CONFIG.research.dotClass,
+  },
+  {
+    key: "advising",
+    label: CATEGORY_CONFIG.advising.shortLabel,
+    dotClass: "bg-[#F97316]",
+  },
+  {
+    key: "other",
+    label: CATEGORY_CONFIG.other.shortLabel,
+    dotClass: CATEGORY_CONFIG.other.dotClass,
+  },
 ];
 
 export function FilterBar({
@@ -32,7 +54,7 @@ export function FilterBar({
   categoryCounts,
 }: FilterBarProps) {
   return (
-    <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+    <div className="w-full flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
       {/* Category Pills */}
       <div className="flex flex-wrap items-center gap-1.5 sm:gap-2">
         {CATEGORY_OPTIONS.map((cat) => {
@@ -50,6 +72,11 @@ export function FilterBar({
                   : "border border-slate-200 bg-white text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
               }`}
             >
+              {cat.dotClass && (
+                <span
+                  className={`h-2 w-2 rounded-full shrink-0 ${cat.dotClass}`}
+                />
+              )}
               <span>{cat.label}</span>
               <span
                 className={`inline-flex h-5 min-w-[20px] items-center justify-center rounded-full px-1.5 text-xs font-semibold ${

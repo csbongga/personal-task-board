@@ -32,10 +32,10 @@ export interface TaskCardProps {
 }
 
 const ALL_STATUSES: TaskStatus[] = [
-  "todo",
   "doing",
   "polish",
   "waiting",
+  "todo",
   "done",
 ];
 
@@ -96,10 +96,12 @@ export function TaskCard({
       ref={setNodeRef}
       style={style}
       onClick={() => onOpenDetail(task)}
-      className={`group relative rounded-2xl border bg-white p-4 text-left shadow-sm transition-all hover:shadow-md dark:bg-slate-900 ${
+      className={`group relative rounded-2xl p-4 text-left shadow-sm transition-all hover:shadow-md cursor-pointer ${
+        categoryConf.cardClass
+      } ${
         isDragging
           ? "opacity-30 ring-2 ring-blue-500 shadow-xl"
-          : "border-slate-200 hover:border-slate-300 dark:border-slate-800 dark:hover:border-slate-700"
+          : "hover:brightness-[0.98] dark:hover:brightness-110"
       }`}
     >
       {/* Top Bar: Category badge, Priority, Drag handle, and Menu */}
@@ -196,7 +198,7 @@ export function TaskCard({
       {/* Prominent Next Action / Waiting Box */}
       <div className="mt-3">
         {task.status === "waiting" ? (
-          <div className="rounded-xl border border-amber-300/80 bg-amber-50/90 p-3 text-amber-950 dark:border-amber-900/60 dark:bg-amber-950/40 dark:text-amber-200">
+          <div className="rounded-xl border border-amber-300/80 bg-white/95 dark:bg-slate-900/90 p-3 text-amber-950 dark:border-amber-900/60 dark:text-amber-200 shadow-sm">
             <div className="flex items-center gap-1.5 text-xs font-semibold text-amber-700 dark:text-amber-400">
               <Clock className="h-3.5 w-3.5 shrink-0" />
               <span>รอผล / ค้างพิจารณา</span>
@@ -206,9 +208,11 @@ export function TaskCard({
             </div>
           </div>
         ) : nextStep ? (
-          <div className="group/step relative rounded-xl border border-blue-200 bg-blue-50/80 p-3 text-blue-950 transition hover:border-blue-300 dark:border-blue-900/60 dark:bg-blue-950/40 dark:text-blue-100 dark:hover:border-blue-800">
-            <div className="flex items-center justify-between text-xs font-medium text-blue-700 dark:text-blue-400">
-              <span>ขั้นตอนถัดไป</span>
+          <div className="group/step relative rounded-xl border border-slate-200/90 bg-white p-3 text-slate-950 shadow-sm transition hover:border-slate-300 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100 dark:hover:border-slate-600">
+            <div className="flex items-center justify-between text-xs font-medium text-slate-500 dark:text-slate-400">
+              <span className="font-semibold text-blue-600 dark:text-blue-400">
+                ขั้นตอนถัดไป
+              </span>
               <span className="text-[11px] opacity-75">ติ๊กเสร็จได้ทันที</span>
             </div>
             <div className="mt-2 flex items-center gap-2.5">
@@ -218,7 +222,7 @@ export function TaskCard({
                   e.stopPropagation();
                   onToggleNextStep(task, nextStep);
                 }}
-                className="flex h-11 w-11 min-h-[44px] min-w-[44px] shrink-0 items-center justify-center rounded-xl border-2 border-blue-500 bg-white text-transparent shadow-sm transition hover:scale-105 hover:bg-blue-600 hover:text-white dark:border-blue-400 dark:bg-slate-900 dark:hover:bg-blue-600"
+                className="flex h-11 w-11 min-h-[44px] min-w-[44px] shrink-0 items-center justify-center rounded-xl border-2 border-blue-500 bg-slate-50 text-transparent shadow-sm transition hover:scale-105 hover:bg-blue-600 hover:text-white dark:border-blue-400 dark:bg-slate-800 dark:hover:bg-blue-600"
                 title={`คลิกเพื่อเช็คว่า "${nextStep.title}" เสร็จแล้ว`}
                 aria-label={`คลิกเพื่อเช็คว่า ${nextStep.title} เสร็จแล้ว`}
               >
@@ -232,12 +236,12 @@ export function TaskCard({
             </div>
           </div>
         ) : totalSteps > 0 && doneCount === totalSteps ? (
-          <div className="flex items-center gap-2 rounded-xl border border-green-200 bg-green-50/80 p-2.5 text-xs font-semibold text-green-700 dark:border-green-900/50 dark:bg-green-950/40 dark:text-green-300">
+          <div className="flex items-center gap-2 rounded-xl border border-green-200 bg-white/95 dark:bg-slate-900/90 p-2.5 text-xs font-semibold text-green-700 dark:border-green-900/50 dark:text-green-300 shadow-sm">
             <CheckCircle2 className="h-4 w-4 shrink-0 text-green-600 dark:text-green-400" />
             <span>✓ ครบทุกขั้นตอนแล้ว</span>
           </div>
         ) : (
-          <div className="rounded-xl border border-dashed border-slate-200 bg-slate-50/60 p-2.5 text-center text-xs text-slate-500 dark:border-slate-800 dark:bg-slate-900/40 dark:text-slate-400">
+          <div className="rounded-xl border border-dashed border-slate-300/80 bg-white/60 dark:bg-slate-900/60 p-2.5 text-center text-xs text-slate-500 dark:border-slate-800 dark:text-slate-400">
             ยังไม่ได้ระบุขั้นตอนย่อย
           </div>
         )}
@@ -269,7 +273,7 @@ export function TaskCard({
 
       {/* Footer Info: Due Date & Note indicator */}
       {(task.due_date || task.note) && (
-        <div className="mt-3.5 flex flex-wrap items-center justify-between gap-2 border-t border-slate-100 pt-2.5 text-xs dark:border-slate-800/80">
+        <div className="mt-3.5 flex flex-wrap items-center justify-between gap-2 border-t border-slate-200/70 pt-2.5 text-xs dark:border-slate-800/80">
           {/* Due date badge */}
           {task.due_date ? (
             <div
@@ -278,7 +282,7 @@ export function TaskCard({
                   ? "border-rose-200 bg-rose-50 text-rose-700 dark:border-rose-900/60 dark:bg-rose-950/50 dark:text-rose-300"
                   : dueStatus === "soon"
                   ? "border-amber-200 bg-amber-50 text-amber-700 dark:border-amber-900/60 dark:bg-amber-950/50 dark:text-amber-300"
-                  : "border-slate-200 bg-slate-50 text-slate-600 dark:border-slate-800 dark:bg-slate-800/60 dark:text-slate-400"
+                  : "border-slate-200 bg-white/90 text-slate-600 dark:border-slate-800 dark:bg-slate-800/60 dark:text-slate-400"
               }`}
             >
               {dueStatus === "overdue" ? (
